@@ -1,0 +1,18 @@
+.card-content-inner{
+    word-wrap: break-word;
+}
+.list-block .item-title{
+    word-wrap: break-word;
+    white-space: normal;
+}
+.list-block .item-input{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.list-block .item-input-lr{
+    width: 1%;
+}
+.list-block textarea{
+    border: 1px solid;
+    height: 10rem;
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.epSystem.dao.AnnounceDao">
+    <select id="queryById" resultType="com.whut.epSystem.entity.Announce" parameterType="long">
+        SELECT announce_id,type,title,content,create_time,last_edit_time
+        FROM tb_announce
+        WHERE announce_id=#{announceId}
+    </select>
+    <select id="queryAnnounceList" resultType="com.whut.epSystem.entity.Announce" parameterType="int">
+        SELECT announce_id,type,title,content,create_time,last_edit_time
+        FROM tb_announce
+        WHERE type=#{type}
+        ORDER BY create_time DESC
+    </select>
+    <insert id="insertAnnounce" useGeneratedKeys="true" keyColumn="announce_id" keyProperty="announceId">
+        INSERT INTO
+        tb_announce(type,title,content,create_time,last_edit_time)
+        VALUES(#{type},#{title},#{content},#{createTime},#{lastEditTime})
+    </insert>
+    <update id="updateAnnounce" parameterType="com.whut.epSystem.entity.Announce">
+        UPDATE tb_announce
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="content!=null">content=#{content},</if>
+            <if test="lastEditTime!=null">last_edit_time=#{lastEditTime}</if>
+        </set>
+        WHERE announce_id=#{announceId}
+    </update>
+    <delete id="deleteAnnounce">
+        DELETE FROM tb_announce
+        WHERE announce_id=#{announceId}
+    </delete>
+</mapper>

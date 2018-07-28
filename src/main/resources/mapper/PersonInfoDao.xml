@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.epSystem.dao.PersonInfoDao">
+    <select id="queryPersonInfo" resultType="com.whut.epSystem.entity.PersonInfo">
+        SELECT user_id,number,password,name,email,gender,user_type,create_time,last_edit_time
+        FROM tb_person_info
+        ORDER BY user_id DESC
+    </select>
+    <select id="findUser" resultType="com.whut.epSystem.entity.PersonInfo">
+        SELECT user_id,number,password,name,email,gender,user_type,create_time,last_edit_time
+        FROM tb_person_info
+        <where>
+            <if test="userCondition!=null and userCondition.number!=null">
+                AND number=#{userCondition.number}
+            </if>
+            <if test="userCondition!=null and userCondition.name!=null">
+                AND name=#{userCondition.name}
+            </if>
+        </where>
+        ORDER BY user_id
+    </select>
+    <select id="findUsers" resultType="com.whut.epSystem.entity.PersonInfo">
+        SELECT user_id,number,password,name,email,gender,user_type,create_time,last_edit_time
+        FROM tb_person_info
+        <where>
+            <if test="userCondition!=null and userCondition.number!=null">
+                AND number=#{userCondition.number}
+            </if>
+            <if test="userCondition!=null and userCondition.name!=null">
+                AND name=#{userCondition.name}
+            </if>
+        </where>
+        ORDER BY user_id
+    </select>
+    <insert id="insertUser" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId">
+        INSERT INTO
+        tb_person_info(number,password,name,email,gender,user_type,create_time,last_edit_time)
+        VALUES(#{number},#{password},#{name},#{email},#{gender},#{userType},#{createTime},#{lastEditTime})
+    </insert>
+    <insert id="batchAddUser" parameterType="java.util.List">
+        INSERT INTO
+        tb_person_info(number,password,name,email,gender,user_type,create_time,last_edit_time)
+        VALUES
+        <foreach collection="list" item="person" index="index" separator=",">
+            (
+            #{person.number},
+            #{person.password},
+            #{person.name},
+            #{person.email},
+            #{person.gender},
+            #{person.userType},
+            #{person.createTime},
+            #{person.lastEditTime}
+            )
+        </foreach>
+    </insert>
+    <update id="updatePersonInfo" parameterType="com.whut.epSystem.entity.PersonInfo">
+        UPDATE tb_person_info
+        <set>
+            <if test="password!=null">password=#{password},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            <if test="lastEditTime!=null">last_edit_time=#{lastEditTime}</if>
+        </set>
+        WHERE user_id=#{userId}
+    </update>
+    <delete id="deletePersonInfo">
+        DELETE FROM tb_person_info
+        WHERE user_id=#{userId}
+    </delete>
+</mapper>

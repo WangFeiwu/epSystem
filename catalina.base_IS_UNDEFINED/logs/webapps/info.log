@@ -1,0 +1,6 @@
+2018-06-01 12:37:20.334 [main] DEBUG com.whut.epSystem.dao.PersonInfoDao.findUsers - ==>  Preparing: SELECT user_id,number,password,name,email,gender,user_type,create_time,last_edit_time FROM tb_person_info WHERE number=? AND name=? ORDER BY user_id 
+2018-06-01 12:37:20.390 [main] DEBUG com.whut.epSystem.dao.PersonInfoDao.findUsers - ==> Parameters: 001(String), a1(String)
+2018-06-01 12:37:20.420 [main] DEBUG com.whut.epSystem.dao.PersonInfoDao.findUsers - <==      Total: 1
+2018-06-01 12:37:20.430 [main] DEBUG com.whut.epSystem.dao.PersonInfoDao.findUser - ==>  Preparing: SELECT user_id,number,password,name,email,gender,user_type,create_time,last_edit_time FROM tb_person_info WHERE number=? AND name=? ORDER BY user_id 
+2018-06-01 12:37:20.431 [main] DEBUG com.whut.epSystem.dao.PersonInfoDao.findUser - ==> Parameters: 001(String), a1(String)
+2018-06-01 12:37:20.433 [main] DEBUG com.whut.epSystem.dao.PersonInfoDao.findUser - <==      Total: 1

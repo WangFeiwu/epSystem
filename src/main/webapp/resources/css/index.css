@@ -1,0 +1,13 @@
+.close-panel {
+	position: absolute;
+	top:90%;
+}
+
+.setting-icon {
+	position: absolute;
+	left: 85%;
+	top: 30%;
+}
+.tab-item {
+	cursor: pointer;
+}

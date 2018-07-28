@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whut.epSystem.dao.ExercisesListDao">
+    <resultMap id="exercisesListMap" type="com.whut.epSystem.entity.ExercisesList">
+        <id column="list_id" property="listId"/>
+        <result column="list_name" property="listName"/>
+        <result column="list_desc" property="listDesc"/>
+        <result column="list_type" property="listType"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_edit_time" property="lastEditTime"/>
+    </resultMap>
+    <select id="queryExercisesList" resultMap="exercisesListMap">
+        SELECT list_id,list_name,list_desc,list_type,create_time,last_edit_time
+        FROM tb_exercises_list
+        <where>
+            <if test="exercisesCondition!=null and exercisesCondition.listType!=null">
+                AND list_type=#{exercisesCondition.listType}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+        LIMIT #{rowIndex},#{pageSize}
+    </select>
+    <select id="queryExercisesListCount" resultType="int">
+        SELECT COUNT(1)
+        FROM tb_exercises_list
+        <where>
+            <if test="exercisesCondition!=null and exercisesCondition.listType!=null">
+                AND list_type=#{exercisesCondition.listType}
+            </if>
+        </where>
+    </select>
+    <select id="queryByListId" resultMap="exercisesListMap">
+        SELECT list_id,list_name,list_desc,list_type,create_time,last_edit_time
+        FROM tb_exercises_list
+        WHERE list_id=#{listId}
+    </select>
+    <insert id="insertExercisesList" useGeneratedKeys="true" keyColumn="list_id" keyProperty="listId">
+        INSERT INTO
+        tb_exercises_list(list_name,list_desc,list_type,create_time,last_edit_time)
+        VALUES
+        (#{listName},#{listDesc},#{listType},#{createTime},#{lastEditTime})
+    </insert>
+    <update id="updateExercisesList" parameterType="com.whut.epSystem.entity.ExercisesList">
+        UPDATE tb_exercises_list
+        <set>
+            <if test="listName!=null"> list_name=#{listName},</if>
+            <if test="listDesc!=null"> list_desc=#{listDesc},</if>
+            <if test="listType!=null"> list_type=#{listType},</if>
+            <if test="lastEditTime!=null"> last_edit_time=#{lastEditTime}</if>
+        </set>
+        WHERE list_id=#{listId}
+    </update>
+    <delete id="deleteExercisesList">
+        DELETE FROM tb_exercises_list
+        WHERE list_id=#{listId}
+    </delete>
+</mapper>
